@@ -1,12 +1,6 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-<!--    <h2>First Pattern</h2>-->
-<!--    <div id="pattern">-->
-<!--      <ul v-for="n in 5">-->
-<!--        <span v-for="m in n">*</span>-->
-<!--      </ul>-->
-<!--    </div>-->
     <div id="stars">
       <h3>How many lines? (1...100)</h3>
       <p></p>
@@ -24,7 +18,6 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Component from 'vue-class-component';
-// import { Watch } from 'vue-property-decorator';
 
 @Options({
   props: {
@@ -33,18 +26,10 @@ import Component from 'vue-class-component';
 })
 
 export default class HelloWorld extends Vue {
-  // msg: string='hello world';
-  msg: string='STARS';
-  count = 0;
+  msg: string = 'STARS';
+  count: number = 0;
 
-  onChange(num:number){
-    if(num >= 0 && num<=100) {
-      this.count = num;
-    } else {
-      alert('Please enter only number between 1 and 100')
-    }
-  }
-  get getNum(){
+  private getNum(){
     if(this.count >= 0 && this.count<=100) {
       return this.count;
     } else {
