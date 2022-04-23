@@ -8,7 +8,7 @@
       <p>{{count}}</p>
     </div>
     <div id="pattern">
-      <ul v-for="n in getNum">
+      <ul v-for="n in getNum()">
         <span v-for="m in n">*</span>
       </ul>
     </div>
