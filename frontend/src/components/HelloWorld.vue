@@ -4,7 +4,7 @@
     <div id="stars">
       <h3>How many lines? (1...100)</h3>
       <p></p>
-      <input v-model.number="count">
+      <input v-model="count">
       <p>{{count}}</p>
     </div>
     <div id="pattern">
@@ -27,14 +27,18 @@ import Component from 'vue-class-component';
 
 export default class HelloWorld extends Vue {
   msg: string = 'STARS';
-  count: number = 0;
+  count: any = null;
 
   private getNum(){
-    if(this.count >= 0 && this.count<=100) {
-      return this.count;
-    } else {
-      alert('Please enter only number between 1 and 100')
-      this.count = 0;
+    console.log('count = ', this.count);
+    if(this.count != null) {
+      if (this.count >= 0 && this.count <= 100) {
+        this.count = parseInt(this.count);
+        return this.count;
+      } else {
+        alert('Please enter only number between 1 and 100')
+        this.count = null;
+      }
     }
     return this.count
   }
