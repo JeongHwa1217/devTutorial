@@ -41,7 +41,8 @@ export default class HelloWorld extends Vue {
         if(this.ptn == 'ptnC'){
           if(this.count%2 == 0){
             this.count = undefined;
-            document.getElementById("pattern").innerHTML='';
+            const domEl = document.getElementById("pattern");
+            if (domEl) domEl.innerHTML = '';
             alert('This is Diamond Pattern.\nPlease enter only ODD number between 1 and 99')
           }
         }
@@ -89,8 +90,11 @@ export default class HelloWorld extends Vue {
           pattern += '<br>';
         }
       }
-      document.getElementById("pattern").style.textAlign=alignStyle;
-      document.getElementById("pattern").innerHTML=pattern;
+      const domEl = document.getElementById("pattern");
+      if (domEl) {
+        domEl.style.textAlign = alignStyle;
+        domEl.innerHTML = pattern;
+      }
     }
   }
 }
