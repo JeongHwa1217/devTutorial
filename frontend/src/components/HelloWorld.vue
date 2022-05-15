@@ -119,8 +119,6 @@ a {
 }
 #pattern{
   margin: auto;
-  width:500px;
   text-align: left;
-  //background: bisque;
 }
 </style>
