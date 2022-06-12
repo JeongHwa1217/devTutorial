@@ -8,7 +8,7 @@
         <option value="ptnB">직각삼각형 - 오른쪽 위로</option>
         <option value="ptnC">다이아몬드</option>
         <option value="ptnD">안정적인 계단</option>
-        <option value="ptnE">위험한 계</option>
+        <option value="ptnE">위험한 계단</option>
       </select>
       <h3>How many lines? (1...100)</h3>
       <input type="number" v-model="count" @change="getNum">
