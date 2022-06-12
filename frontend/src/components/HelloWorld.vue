@@ -7,6 +7,8 @@
         <option value="ptnA">직각삼각형 - 왼쪽 아래로</option>
         <option value="ptnB">직각삼각형 - 오른쪽 위로</option>
         <option value="ptnC">다이아몬드</option>
+        <option value="ptnD">안정적인 계단</option>
+        <option value="ptnE">위험한 계</option>
       </select>
       <h3>How many lines? (1...100)</h3>
       <input type="number" v-model="count" @change="getNum">
@@ -18,12 +20,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-
-@Options({
-  props: {
-    msg: String
-  }
-})
+import axios from 'axios';
 
 export default class HelloWorld extends Vue {
   private msg: string = 'STARS';
@@ -44,57 +41,46 @@ export default class HelloWorld extends Vue {
             const domEl = document.getElementById("pattern");
             if (domEl) domEl.innerHTML = '';
             alert('This is Diamond Pattern.\nPlease enter only ODD number between 1 and 99')
+            return;
           }
         }
         this.getPattern();
       } else {
+        const domEl = document.getElementById("pattern");
+        if (domEl) domEl.innerHTML = '';
         alert('Please enter only number between 1 and 100')
         this.count = undefined;
       }
     }
   }
-  private getPattern(){
-    if(this.count != undefined) {
-      let cnt:number = this.count;
-      let pattern:string = '';
-      let alignStyle:string = 'left';
 
-      if (this.ptn == 'ptnA') {
-        for (let i=0; i<cnt; i++) {
-          for (let j=0; j<=i; j++) {
-            pattern += '*';
-          }
-          pattern += '<br>';
-        }
-      } else if (this.ptn == 'ptnB') {
+  private getPattern(){
+    let url = 'http://localhost:8080/pattern'
+    let params = {
+      ptnType : this.ptn,
+      count : this.count
+    };
+
+    if(this.count != undefined) {
+      let alignStyle:string = 'left';
+      if(this.ptn == 'ptnB'){
         alignStyle='right';
-        for (let i=0; i<cnt; i++) {
-          for (let j=0; j<cnt-i; j++) {
-            pattern += '*';
-          }
-          pattern += '<br>';
-        }
-      } else if (this.ptn == 'ptnC') {
+      } else if(this.ptn == 'ptnC'){
         alignStyle='center';
-        let quo:number = Math.floor(cnt/2);
-        for (let i=0; i<quo; i++) {
-          for (let j=0; j<2*i+1; j++) {
-            pattern += '*';
-          }
-          pattern += '<br>';
-        }
-        for (let i=quo; i>=0; i--) {
-          for (let j=0; j<2*i+1; j++) {
-            pattern += '*';
-          }
-          pattern += '<br>';
-        }
       }
-      const domEl = document.getElementById("pattern");
-      if (domEl) {
-        domEl.style.textAlign = alignStyle;
-        domEl.innerHTML = pattern;
-      }
+
+      axios.get(url, {params:params})
+          .then(function (res) {
+            const domEl = document.getElementById("pattern");
+            console.log(res.data);
+            if (domEl) {
+              domEl.style.textAlign = alignStyle;
+              domEl.innerHTML = res.data;
+            }
+          })
+          .catch(function (ex) {
+            console.log('post fail', ex);
+          })
     }
   }
 }
