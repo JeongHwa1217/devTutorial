@@ -14,7 +14,8 @@
       <input type="number" v-model="count" @change="getNum">
     </div>
     <br>
-    <div id="pattern"></div>
+    <div ref="pattern"></div>
+<!--    <div id="pattern"></div>-->
   </div>
 </template>
 
@@ -38,22 +39,23 @@ export default class HelloWorld extends Vue {
         if(this.ptn == 'ptnC'){
           if(this.count%2 == 0){
             this.count = undefined;
-            const domEl = document.getElementById("pattern");
-            if (domEl) domEl.innerHTML = '';
+            (this.$refs.pattern as any).innerHTML = '';
             alert('This is Diamond Pattern.\nPlease enter only ODD number between 1 and 99')
             return;
           }
         }
         this.getPattern();
       } else {
-        const domEl = document.getElementById("pattern");
-        if (domEl) domEl.innerHTML = '';
+        (this.$refs.pattern as any).innerHTML = '';
         alert('Please enter only number between 1 and 100')
         this.count = undefined;
       }
     }
   }
-
+  private setPattern(alignStyle:string, result:string){
+    (this.$refs.pattern as any).style.textAlign = alignStyle;
+    (this.$refs.pattern as any).innerHTML = result;
+  }
   private getPattern(){
     let url = 'http://localhost:8080/pattern'
     let params = {
@@ -69,20 +71,20 @@ export default class HelloWorld extends Vue {
         alignStyle='center';
       }
 
-      axios.get(url, {params:params})
+      const self = this;
+      axios.post(url, params)
           .then(function (res) {
-            const domEl = document.getElementById("pattern");
-            console.log(res.data);
-            if (domEl) {
-              domEl.style.textAlign = alignStyle;
-              domEl.innerHTML = res.data;
-            }
+            (self.$refs.pattern as any).style.textAlign = alignStyle;
+            (self.$refs.pattern as any).innerHTML = res.data;
           })
           .catch(function (ex) {
+            alert('Failed to connect to server. Please contact the manager.')
             console.log('post fail', ex);
-          })
+            return;
+          });
     }
   }
+
 }
 
 </script>

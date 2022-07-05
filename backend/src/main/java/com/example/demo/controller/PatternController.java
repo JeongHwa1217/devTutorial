@@ -5,11 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:8081")
-@Controller
+@RestController
 public class PatternController {
-    @GetMapping("/pattern")
-    @ResponseBody
-    public String pattern(PatternRequest input){
+    @PostMapping("/pattern")
+    public String pattern(@RequestBody PatternRequest input){
         String result = "";
         switch (input.getPtnType()){
             case "ptnA" :
