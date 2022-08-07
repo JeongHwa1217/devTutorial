@@ -1,5 +1,17 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <History/>
   </div>
 </template>
+
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import History from '@/components/History.vue';
+
+@Options({
+  components: {
+    History,
+  },
+})
+export default class AboutView extends Vue {}
+</script>
