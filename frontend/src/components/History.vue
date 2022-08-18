@@ -27,10 +27,18 @@ import { Options, Vue } from 'vue-class-component';
 import axios from 'axios';
 
 export default class History extends Vue{
-  private count: number = 0;
+  private count: number = 10;
+
+  mounted(){
+    if(sessionStorage.getItem("count")) {
+      this.count = parseInt(<string>sessionStorage.getItem("count"));
+    }
+    this.getHistory();
+  }
 
   private changeCnt(event:Event){
     console.log('num', this.count);
+    sessionStorage.setItem("count", this.count.toString());
     this.getHistory();
   }
 
@@ -51,7 +59,7 @@ export default class History extends Vue{
         })
   }
 
-  private setHistory(data){
+  private setHistory(data : any){
     console.log('axios data', data);
 
     let tbody = '';
