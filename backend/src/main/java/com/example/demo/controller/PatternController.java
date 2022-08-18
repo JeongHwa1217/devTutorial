@@ -4,7 +4,6 @@ import com.example.demo.Pattern;
 import com.example.demo.dto.PatternRequest;
 import com.example.demo.service.PatternService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -10,8 +10,8 @@ import java.util.List;
 
 @Service
 public class PatternService {
-    private final List<Pattern> patternMap= new ArrayList<>();
-    private static int seq = 0;
+    private List<Pattern> patternList= new ArrayList<>();
+    private int seq = 0;
 
     public Pattern newPattern(PatternRequest input){
         Pattern pattern = new Pattern();
@@ -84,7 +84,7 @@ public class PatternService {
 
     public Integer savePattern(Pattern pattern){
         ++seq;
-        this.patternMap.add(pattern);
+        this.patternList.add(pattern);
         return seq;
     }
 
@@ -93,8 +93,8 @@ public class PatternService {
             return null;
         }
         if(count >= seq){
-            return patternMap.subList(0, seq);
+            return patternList.subList(0, seq);
         }
-        return patternMap.subList(seq-count, seq);
+        return patternList.subList(seq-count, seq);
     }
 }
