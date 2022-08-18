@@ -28,7 +28,7 @@ export default class HelloWorld extends Vue {
   private count?: number = 1;
   private ptn: string = 'ptnA';
 
-  beforeMount(){
+  mounted(){
     this.getNum();
   }
   private changePattern(event:Event){
