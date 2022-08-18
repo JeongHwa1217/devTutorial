@@ -25,17 +25,19 @@ import axios from 'axios';
 
 export default class HelloWorld extends Vue {
   private msg: string = 'STARS';
-  private count?: number = 0;
+  private count?: number = 1;
   private ptn: string = 'ptnA';
 
+  beforeMount(){
+    this.getNum();
+  }
   private changePattern(event:Event){
     this.getNum();
-    this.getPattern();
   }
 
   private getNum(){
     if(this.count != undefined) {
-      if (this.count >= 0 && this.count <= 100) {
+      if (this.count > 0 && this.count <= 100) {
         if(this.ptn == 'ptnC'){
           if(this.count%2 == 0){
             this.count = undefined;
@@ -51,10 +53,6 @@ export default class HelloWorld extends Vue {
         this.count = undefined;
       }
     }
-  }
-  private setPattern(alignStyle:string, result:string){
-    (this.$refs.pattern as any).style.textAlign = alignStyle;
-    (this.$refs.pattern as any).innerHTML = result;
   }
   private getPattern(){
     let url = 'http://localhost:8080/pattern'
